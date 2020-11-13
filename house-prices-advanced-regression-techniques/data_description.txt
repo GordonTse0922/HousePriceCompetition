@@ -410,7 +410,7 @@ FireplaceQu: Fireplace quality
        Po	Poor - Ben Franklin Stove
        NA	No Fireplace
 		
-GarageType: Garage location
+garageType: Garage location
 		
        2Types	More than one type of garage
        Attchd	Attached to home
