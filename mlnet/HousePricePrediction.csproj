@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Dataset\test.csv" />
+    <None Remove="Dataset\train.csv" />
+    <None Remove="Model\MLModel.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="test.csv" />
+    <EmbeddedResource Include="train.csv" />
+    <EmbeddedResource Include="MLModel.zip" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Resource Include="Dataset\train.csv" />
+    <Resource Include="Model\MLModel.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Dataset\test.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="6.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.ML" Version="1.5.2" />
+    <PackageReference Include="Microsoft.ML.AutoML" Version="0.17.2" />
+    <PackageReference Include="Microsoft.ML.CpuMath" Version="1.5.2" />
+    <PackageReference Include="Microsoft.ML.DataView" Version="1.5.2" />
+    <PackageReference Include="Microsoft.ML.FastTree" Version="1.5.2" />
+    <PackageReference Include="Resourcer.Fody" Version="1.8.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="train.csv" />
+  </ItemGroup>
+
+</Project>
