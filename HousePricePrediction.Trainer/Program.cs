@@ -63,6 +63,9 @@ var experimentSettings = new RegressionExperimentSettings()
     OptimizingMetric = RegressionMetric.RootMeanSquaredError,
     CacheDirectory = null,
 };
+
+new List<RegressionTrainer> { RegressionTrainer.LbfgsPoissonRegression, RegressionTrainer.OnlineGradientDescent }
+    .ForEach(x => experimentSettings.Trainers.Remove(x));
 var experiment = ctx.Auto().CreateRegressionExperiment(experimentSettings);
 var progressHandler = new RegressionExperimentProgressHandler();
 
@@ -87,13 +90,8 @@ var predictions = experimentResult.BestRun.Model.Transform(testDataView);
 var metrics = ctx.Regression.Evaluate(predictions, labelColumnName: "SalePrice", scoreColumnName: "Score");
 ConsoleHelper.PrintRegressionMetrics(experimentResult.BestRun.TrainerName, metrics);
 
-ConsoleHelper.ConsoleWriteHeader("=============== Re-fitting best pipeline ===============");
-var combinedDataView = textLoader.Load(new MultiFileSource(trainDataPath, testDataPath));
-var bestRun = experimentResult.BestRun;
-var refitModel = bestRun.Estimator.Fit(combinedDataView);
-
 ConsoleHelper.ConsoleWriteHeader("=============== Saving the model ===============");
-ctx.Model.Save(refitModel, trainDataView.Schema, "./model.zip");
+ctx.Model.Save(experimentResult.BestRun.Model, trainDataView.Schema, "./model.zip");
 Console.WriteLine($"The model is saved as model.zip");
 
 File.Delete(trainDataPath);
