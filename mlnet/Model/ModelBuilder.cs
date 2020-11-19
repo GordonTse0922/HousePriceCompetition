@@ -102,7 +102,7 @@ namespace HousePricePrediction
 
         public static string GetAbsolutePath(string relativePath)
         {
-            FileInfo _dataRoot = new FileInfo(typeof(HousePricePrediction.Program).Assembly.Location);
+            FileInfo _dataRoot = new FileInfo(typeof(ModelOutput).Assembly.Location);
             string assemblyFolderPath = _dataRoot.Directory.FullName;
 
             string fullPath = Path.Combine(assemblyFolderPath, relativePath);

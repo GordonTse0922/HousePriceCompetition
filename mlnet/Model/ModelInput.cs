@@ -4,7 +4,7 @@ using Microsoft.ML.Data;
 
 namespace HousePricePrediction
 {
-    public class ModelInput
+    public record ModelInput
     {
         [ColumnName("Id"), LoadColumn(0)]
         public float Id { get; set; }
