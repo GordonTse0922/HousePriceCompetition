@@ -4,7 +4,7 @@ using Microsoft.ML.Data;
 
 namespace HousePricePrediction
 {
-    public class ModelOutput
+    public record ModelOutput
     {
         [ColumnName("Id"), LoadColumn(0)]
         public float Id { get; set; }
@@ -12,6 +12,6 @@ namespace HousePricePrediction
         [ColumnName("Score")]
         public float SalePrice { get; set; }
 
-        public override string ToString() => $"{Id},{SalePrice}";
+        public override string ToString() => $"{Id},{SalePrice:f3}";
     }
 }

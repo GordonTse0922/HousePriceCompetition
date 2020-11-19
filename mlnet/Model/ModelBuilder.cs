@@ -66,7 +66,7 @@ namespace HousePricePrediction
                                       .Append(mlContext.Transforms.ReplaceMissingValues(new[] { new InputOutputColumnPair("LotFrontage", "LotFrontage"), new InputOutputColumnPair("MasVnrArea", "MasVnrArea"), new InputOutputColumnPair("GarageYrBlt", "GarageYrBlt") }))
                                       .Append(mlContext.Transforms.Concatenate("Features", new[] { "CentralAir", "MSZoning", "Street", "Alley", "LotShape", "LandContour", "Utilities", "LotConfig", "LandSlope", "Neighborhood", "Condition1", "Condition2", "BldgType", "HouseStyle", "RoofStyle", "RoofMatl", "Exterior1st", "Exterior2nd", "MasVnrType", "ExterQual", "ExterCond", "Foundation", "BsmtQual", "BsmtCond", "BsmtExposure", "BsmtFinType1", "BsmtFinType2", "Heating", "HeatingQC", "Electrical", "KitchenQual", "Functional", "FireplaceQu", "GarageType", "GarageFinish", "GarageQual", "GarageCond", "PavedDrive", "PoolQC", "Fence", "MiscFeature", "SaleType", "SaleCondition", "LotFrontage_MissingIndicator", "MasVnrArea_MissingIndicator", "GarageYrBlt_MissingIndicator", "LotFrontage", "MasVnrArea", "GarageYrBlt", "MSSubClass", "LotArea", "OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd", "BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "1stFlrSF", "2ndFlrSF", "LowQualFinSF", "GrLivArea", "BsmtFullBath", "BsmtHalfBath", "FullBath", "HalfBath", "BedroomAbvGr", "KitchenAbvGr", "TotRmsAbvGrd", "Fireplaces", "GarageCars", "GarageArea", "WoodDeckSF", "OpenPorchSF", "EnclosedPorch", "3SsnPorch", "ScreenPorch", "PoolArea", "MiscVal", "MoSold", "YrSold" }));
             // Set the training algorithm 
-            var trainer = mlContext.Regression.Trainers.FastTree(labelColumnName: "SalePrice", featureColumnName: "Features");
+            var trainer = mlContext.Regression.Trainers.LightGbm(labelColumnName: "SalePrice", featureColumnName: "Features");
 
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 
@@ -102,7 +102,7 @@ namespace HousePricePrediction
 
         public static string GetAbsolutePath(string relativePath)
         {
-            FileInfo _dataRoot = new FileInfo(typeof(HousePricePrediction.Program).Assembly.Location);
+            FileInfo _dataRoot = new FileInfo(typeof(ModelOutput).Assembly.Location);
             string assemblyFolderPath = _dataRoot.Directory.FullName;
 
             string fullPath = Path.Combine(assemblyFolderPath, relativePath);
